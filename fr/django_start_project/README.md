@@ -101,6 +101,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ```
 
+Cette ligne fait référence à un **module** python appelé `os` qu'il vous faut importer avant de pouvoir l'utiliser. Pour cela, rajouter _en haut de votre fichier_ `settings.py` :
+
+{% filename %}mysite/settings.py{% endfilename %}
+
+```python
+import os
+```
+
 Lorsque `DEBUG` a valeur `True` et `ALLOWED_HOSTS` est vide, les noms d'hôte acceptés sont `[« localhost », '127.0.0.1 », ' [ :: 1]']`. Notre nom d’hôte sur Scalingo ne sera donc pas accepté une fois que notre application sera déployée. Pour éviter cela, nous allons changer le paramètre suivant :
 
 {% filename %}mysite/settings.py{% endfilename %}

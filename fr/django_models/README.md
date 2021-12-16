@@ -1,6 +1,6 @@
 # Les modèles dans Django
 
-Maintenant, nous aimerions créer quelque chose qui permet stocker les articles de notre blog. Mais avant de pour pouvoir faire ça, nous allons tout d'abord devoir vous parler d'un truc qui s'appelle les `objets`.
+Maintenant, nous aimerions créer quelque chose qui permet stocker les prospects qui s'inscrivent sur notre landing. Mais avant de pour pouvoir faire ça, nous allons tout d'abord devoir vous parler d'un truc qui s'appelle les `objets`.
 
 ## Les objets
 
@@ -30,53 +30,54 @@ Ensuite, nous pouvons donner des actions au `Chat` : `ronronner`, `gratter` ou `
 
 L'idée qu'il faut retenir, c'est que l'on décrit les choses du monde réel avec des propriétés (appelées `propriétés des objets`) et des actions (appelées `méthodes`).
 
-Du coup, comment modéliser les articles de blog ? C'est bien gentil les chats, mais ce qui nous intéresse, ça reste de faire un blog !
+Du coup, comment modéliser les prospects de notre Startup d'Etat ? C'est bien gentil les chats, mais ce qui nous intéresse, ça reste de récupérer les coordonnées des gens intéressés par notre produit !
 
-Pour ça, il faut réponde à la question : qu'est-ce qu'un article de blog ? Quelles propriétés devrait-il avoir ?
+Pour ça, il faut répondre à la question : qu'est-ce qu'un prospect ? Quelles propriétés devrait-il avoir ?
 
-Pour commencer, notre blog post doit avoir du texte : il a bien du contenu et un titre, n'est-ce pas ? Et puis, ce serait bien de savoir aussi qui l'a écrit. On a donc besoin d'un auteur. Enfin, on aimerait aussi savoir quand l'article a été écrit et publié.
+Pour commencer, notre prospect doit avoir un prénom et un nom. Ensuite, il nous faut lui demander son adresse email ou son numéro de téléphone. Et puis, ce serait bien de savoir aussi pourquoi il est intéressé. On a donc besoin d'un champs "fonction". Enfin, on aimerait aussi savoir quand le prospect s'est inscrit sur notre formulaire.
 
     Post
     --------
-    title
-    text
-    author
+    surname
+    name
+    email
+    phone_number
+    function
     created_date
-    published_date
     
 
-Quel genre d'actions pourrions-nous faire sur un article de blog ? Un bon début serait d'avoir une `méthode` qui permet de publier le post.
+Quel genre d'actions pourrions-nous faire sur un prospect ? Un bon début serait d'avoir une `méthode` qui permet de contacter le prospect.
 
-On va donc avoir besoin d'une méthode `publish`.
+On va donc avoir besoin d'une méthode `contact`.
 
 Voilà, nous avons une idée de ce que nous avons besoin. Allons modéliser tout ça dans Django!
 
 ## Les modèles dans Django
 
-Maintenant que nous savons ce qu'est un objet, nous allons pouvoir créer un modèle Django pour notre post de blog.
+Maintenant que nous savons ce qu'est un objet, nous allons pouvoir créer un modèle Django pour stocker nos prospects.
 
-Un modèle Django est un type particulier d'objet : il est sauvegardé dans la `base de données`. Une base de données est une collection de données. C'est à cet endroit que l'on stocke toutes les informations au sujet des utilisateurs, des blog posts, etc. Pour stocker nos données, nous allons utiliser une base de données SQLite. C'est la base de données par défaut dans Django. Elle sera largement suffisante pour ce que nous voulons faire.
+Un modèle Django est un type particulier d'objet : il est sauvegardé dans la `base de données`. Une base de données est une collection de données. C'est à cet endroit que l'on stocke toutes les informations au sujet des utilisateurs, des posts, etc. Pour stocker nos données, nous allons utiliser une base de données SQLite. C'est la base de données par défaut dans Django. Elle sera largement suffisante pour ce que nous voulons faire.
 
 Pour vous aider à visualiser ce qu'est une base de données, pensez à un tableur avec des colonnes (champs) et des lignes (données).
 
 ### Créer une application
 
-Pour éviter le désordre, nous allons créer une application séparée à l'intérieur de notre projet. Prenez l'habitude de bien tout organiser dès le début. Afin de créer une application, nous avons besoin d'exécuter la commande suivante dans notre console (prenez garde à bien être dans le dossier `djangogirls` où se trouve le fichier `manage.py`) :
+Pour éviter le désordre, nous allons créer une application séparée à l'intérieur de notre projet. Prenez l'habitude de bien tout organiser dès le début. Afin de créer une application, nous avons besoin d'exécuter la commande suivante dans notre console (prenez garde à bien être dans le dossier `landingpage` où se trouve le fichier `manage.py`) :
 
 {% filename %}Mac OS X and Linux:{% endfilename %}
 
-    (myvenv) ~/djangogirls$ python manage.py startapp blog
+    (myvenv) ~/landingpage$ python manage.py startapp landingpage
     
 
 {% filename %}Windows:{% endfilename %}
 
-    (myvenv) C:\Users\Name\djangogirls> python manage.py startapp blog
+    (myvenv) C:\Users\Name\landingpage> python manage.py startapp landingpage
     
 
-Vous pouvez voir qu'un nouveau dossier `blog` a été créé et qu'il contient différents fichiers. Les dossiers et fichiers liés à votre projet doivent maintenant être organisés selon cette structure :
+Vous pouvez voir qu'un nouveau dossier `landingpage` a été créé et qu'il contient différents fichiers. Les dossiers et fichiers liés à votre projet doivent maintenant être organisés selon cette structure :
 
-    djangogirls
-    ├── blog
+    landingpage
+    ├── landingpage
     │   ├── admin.py
     │   ├── apps.py
     │   ├── __init__.py
@@ -98,7 +99,7 @@ Vous pouvez voir qu'un nouveau dossier `blog` a été créé et qu'il contient d
     
     
 
-Après avoir créé une nouvelle application, vous devez dire à Django de l'utiliser. Nous faisons cela via le fichier `mysite/settings.py`. Ouvrez-le dans votre éditeur de code. Trouvez la section `INSTALLED_APPS` et ajoutez une ligne `'blog.apps.BlogConfig',` juste avant `]`. La section doit maintenant ressembler à ceci :
+Après avoir créé une nouvelle application, vous devez dire à Django de l'utiliser. Nous faisons cela via le fichier `mysite/settings.py`. Ouvrez-le dans votre éditeur de code. Trouvez la section `INSTALLED_APPS` et ajoutez une ligne `'landingpage.apps.LandingpageConfig',` juste avant `]`. La section doit maintenant ressembler à ceci :
 
 {% filename %}mysite/settings.py{% endfilename %}
 
@@ -110,17 +111,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',
+    'landingpage.apps.LandingpageConfig',
 ]
 ```
 
-### Créer un modèle de blog post
+### Créer un modèle de prospect
 
-Le fichier `blog/models.py` permet de définir les objets que nous appelons des `modèles`. C'est à cet endroit que nous allons définir ce que c'est qu'un un blog post.
+Le fichier `landingpage/models.py` permet de définir les objets que nous appelons des `modèles`. C'est à cet endroit que nous allons définir ce que c'est qu'un un prospect.
 
-Ouvrez le fichier `blog/models.py` dans l'éditeur de code, supprimez tout ce qui s'y trouve et copiez-y le morceau de code suivant :
+Ouvrez le fichier `landingpage/models.py` dans l'éditeur de code, supprimez tout ce qui s'y trouve et copiez-y le morceau de code suivant :
 
-{% filename %}blog/models.py{% endfilename %}
+{% filename %}landingpage/models.py{% endfilename %}
 
 ```python
 from django.conf import settings
@@ -128,14 +129,18 @@ from django.db import models
 from django.utils import timezone
 
 
-class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
+class Prospect(models.Model):
+    surname = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    email = models.
+    phone_number = models.
+    function = models.CharField(max_length=200)
     created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
 
-    def publish(self):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+    def contact(self):
         self.published_date = timezone.now()
         self.save()
 
@@ -178,7 +183,7 @@ La dernière étape pour cette section est d'ajouter notre nouveau modèle à no
 
 {% filename %}command-line{% endfilename %}
 
-    (myvenv) ~/djangogirls$ python manage.py makemigrations blog
+    (myvenv) ~/landingpage$ python manage.py makemigrations blog
     Migrations for 'blog':
       blog/migrations/0001_initial.py:
     
@@ -191,7 +196,7 @@ Django vient de nous préparer un fichier de migration que nous allons pouvoir a
 
 {% filename %}command-line{% endfilename %}
 
-    (myvenv) ~/djangogirls$ python manage.py migrate blog
+    (myvenv) ~/landingpage$ python manage.py migrate blog
     Operations to perform:
       Apply all migrations: blog
     Running migrations:

@@ -2,15 +2,15 @@
 
 Il est enfin temps de se débarrasser du bug que nous avons créé dans le chapitre précédent! :)
 
-C'est dans la *vue* que nous allons ranger toute la partie "logique" de notre application. C'est elle qui va se charger d'aller chercher les informations liées à notre `modèle `que nous venons de créer et de les passer à un `template`. Nous allons créer ce template dans le chapitre suivant. Concrètement, les vues ne sont que des fonctions Python un peu plus élaborées que celles que nous avons créées dans la partie **Introduction à Python**.
+C'est dans la *vue* que nous allons ranger toute la partie "logique" de notre application. C'est elle qui va se charger d'aller chercher les informations liées à notre `modèle` que nous venons de créer et de les passer à un `template`. Nous allons créer ce template dans le chapitre suivant. Concrètement, les vues ne sont que des fonctions Python un peu plus élaborées que celles que nous avons créées dans la partie **Introduction à Python**.
 
-Les vues sont placées dans le fichier `views.py`. Nous allons créer nos *vues* dans le fichier `blog/views.py`.
+Les vues sont placées dans le fichier `views.py`. Nous allons créer nos *vues* dans le fichier `landingpage/views.py`.
 
-## blog/views.py
+## landingpage/views.py
 
 Ok, allons-y ! Ouvrons ce fichier dans notre éditeur de code pour voir ce qu'il contient :
 
-{% filename %}blog/views.py{% endfilename %}
+{% filename %}landingpage/views.py{% endfilename %}
 
 ```python
 from django.shortcuts import render
@@ -24,14 +24,14 @@ N’oubliez pas que les lignes commençant par `#` sont des commentaires, ce qui
 
 Nous allons créer une *vue* comme l’indique le commentaire. Ajoutez la vue minimale suivante :
 
-{% filename %}blog/views.py{% endfilename %}
+{% filename %}landingpage/views.py{% endfilename %}
 
 ```python
-def post_list(request):
-    return render(request, 'blog/post_list.html', {})
+def landing(request):
+    return render(request, 'landingpage/home.html', {})
 ```
 
-Comme vous pouvez le voir, nous avons créé une fonction (`def`) appelée `post_list` qui prend une `request (requête)` et qui va `return (retourner)` la valeur donnée par une autre fonction `render` qui va assembler notre template `blog/post_list.html`.
+Comme vous pouvez le voir, nous avons créé une fonction (`def`) appelée `landing` qui prend une `request (requête)` et qui va `return (retourner)` la valeur donnée par une autre fonction `render` qui va assembler notre template `landingpage/home.html`.
 
 Sauvegardez votre fichier et allez à l'adresse http://127.0.0.1:8000/ pour voir ce qui s'affiche maintenant.
 

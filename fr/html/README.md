@@ -16,16 +16,16 @@ L'abréviation HTML signifie « HyperText Markup Language ». **HyperText** sign
 
 Créer un template signifie créer un fichier template. Et oui, encore des fichiers ! Vous aviez déjà probablement remarqué que tout tourne autour des fichiers.
 
-Les templates sont sauvegardés dans le dossier `blog/templates/blog`. Tout d'abord, créons un dossier appelé `templates` à l'intérieur du dossier de notre blog. Ensuite, créez un autre dossier appelé `blog` à l'intérieur de votre dossier templates :
+Les templates sont sauvegardés dans le dossier `landingpage/templates/landingpage`. Tout d'abord, créons un dossier appelé `templates` à l'intérieur du dossier de notre landing page. Ensuite, créez un autre dossier appelé `landingpage` à l'intérieur de votre dossier templates :
 
-    blog
+    landingpage
     └───templates
-        └───blog
+        └───landingpage
     
 
-Vous pourriez vous demander pourquoi nous avons besoin de deux dossiers portant tous les deux le nom `blog`. Comme vous le découvrirez plus tard, c'est une convention de nommage qui va nous faciliter la vie quand les choses vont commencer à devenir compliquées.
+Vous pourriez vous demander pourquoi nous avons besoin de deux dossiers portant tous les deux le nom `landingpage`. Comme vous le découvrirez plus tard, c'est une convention de nommage qui va nous faciliter la vie quand les choses vont commencer à devenir compliquées.
 
-Et maintenant, créez un fichier `post_list.html` (laisser le vide pour le moment) dans le dossier `templates/blog/blog`.
+Et maintenant, créez un fichier `home.html` (laisser le vide pour le moment) dans le dossier `landingpage/templates/landingpage/`.
 
 Allons regarder à quoi ressemble notre site maintenant : http://127.0.0.1:8000/
 
@@ -37,7 +37,7 @@ Et voilà, il n'y a plus d'erreurs ! Bravo :) Cependant, notre site ne peut rien
 
 Ouvrez le nouveau fichier dans l’éditeur de code et ajoutez le morceau suivant :
 
-{% filename %}blog/templates/blog/post_list.html{% endfilename %}
+{% filename %}landingpage/templates/landingpage/post_list.html{% endfilename %}
 
 ```html
 <!DOCTYPE html>
@@ -71,13 +71,13 @@ Nous utilisons `<head>` pour transmettre la configuration de la page au navigate
 
 Par exemple, vous pouvez donner un titre à votre page web en utilisant l'élément titre dans le `<head>` :
 
-{% filename %}blog/templates/blog/post_list.html{% endfilename %}
+{% filename %}landingpage/templates/landingpage/post_list.html{% endfilename %}
 
 ```html
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Ola's blog</title>
+        <title>Ma Landing Page</title>
     </head>
     <body>
         <p>Bonjour !</p>
@@ -90,7 +90,7 @@ Sauvegardez votre fichier et actualisez la page.
 
 ![Figure 11.3](images/step4.png)
 
-Vous avez vu comment le navigateur a compris que « Le Blog d'Ola » est le titre de votre page ? Il a interprété `<title>Le blog d'Ola</title>` et a placé ce texte dans la barre de titre de votre navigateur (c'est ce titre qui va être aussi utilisé lorsque vous créez un marque-page, etc.).
+Vous avez vu comment le navigateur a compris que « Ma Landing Page » est le titre de votre page ? Il a interprété `<title>Ma Landing Page</title>` et a placé ce texte dans la barre de titre de votre navigateur (c'est ce titre qui va être aussi utilisé lorsque vous créez un marque-page, etc.).
 
 Vous avez aussi probablement remarqué que chaque balise ouvrante possède sa *balise fermante*, composée d'un `/`, est qu'elles *encadrent* les différents éléments. Cela signifie que vous ne pouvez pas fermer une balise si celles imbriquées à l'intérieur de celle-ci n'ont pas été fermées.
 
@@ -121,9 +121,9 @@ Et si nous en profitions pour nous amuser un peu ? Essayons de personnaliser not
 * `<footer></footer>` définit un pied de page pour un document ou une section
 * `<time></time>` définit un instant spécifique (ou un horodatage)
 
-Voici un exemple d’un modèle complet, copiez et collez-le dans `blog/templates/blog/post_list.html` :
+Voici un exemple d’un modèle complet, copiez et collez-le dans `landingpage/templates/landingpage/home.html` :
 
-{% filename %}blog/templates/blog/post_list.html{% endfilename %}
+{% filename %}landingpage/templates/landingpage/home.html{% endfilename %}
 
 ```html
 <!DOCTYPE html>
@@ -149,18 +149,16 @@ Voici un exemple d’un modèle complet, copiez et collez-le dans `blog/template
 </html>
 ```
 
-Nous avons créé ici une section `en-tête` et deux sections `article`.
+Nous avons créé ici une section `en-tête` et deux sections `div`.
 
-* Le premier élément `header` contient le titre de notre blog - c'est à la fois un titre et un lien
-* Les deux éléments `article` contiennent nos articles de blog avec une date de publication dans un élément `time` un élément `h2` avec un titre de publication qui est cliquable et un élément `p` (paragraphe) pour le texte de notre blog.
+* Le premier élément `header` contient le titre de notre landing page - c'est à la fois un titre et un lien
+* Les deux éléments `div` contiennent nos paragraphes qui parlent de notre Startup d'Etat.
 
 Ce qui nous donne :
 
 ![Figure 11.4](images/step6.png)
 
-Yaaay ! Pour l'instant, notre template nous permet seulement d'afficher les **mêmes informations** alors que nous disions précédemment qu'il doit nous permettre d'afficher des informations **différentes** utilisant le **même format**.
-
-Ce qu'on aimerait pouvoir faire maintenant, c'est d'afficher les posts que nous avons créés précédemment dans l'interface d'administration de Django. Penchons-nous là dessus.
+Ce qu'on aimerait pouvoir faire maintenant, c'est d'afficher un formulaire afin de collecter les informations de nos prospects. Penchons-nous là dessus.
 
 ## Une dernière chose : déployer !
 
